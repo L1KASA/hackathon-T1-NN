@@ -1,0 +1,40 @@
+version: '3.3'
+
+services:
+  postgres:
+    image: postgres:13-alpine
+    ports:
+      - "5432:5432"
+    env_file: .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      hackathon_service:
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB" ]
+      interval: 5s
+      timeout: 5s
+      retries: 7
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: poetry run uvicorn app.main:app --reload --host 0.0.0.0 --forwarded-allow-ips '*'
+    volumes:
+      - ./app:/app/app
+    ports:
+      - "8000:8000"
+    env_file: .env
+    networks:
+      hackathon_service:
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+networks:
+  hackathon_service:
+    name: hackathon_service
+
+volumes:
+  valkey_data:
+  postgres_data:

@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "hr-consultant"
+version = "0.1.0"
+description = "HR-CONSULTANT"
+authors = ["Anzhelika Takhmazova <anzhelika_tahmazova@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+aiohttp = "3.11.10"
+async-timeout = "4.0.3"
+fastapi = "0.112.0"
+pydantic = {version = "2.8.2", extras = ["email"]}
+uvicorn = "0.19.0"
+sqlalchemy = "2.0.32"
+psycopg2-binary = "2.9.9"
+python-multipart = "0.0.6"
+python-dotenv = "1.0.0"
+alembic = "1.13.1"
+ruff = "^0.11.2"
+mypy = "^1.14.1"
+
+[tool.mypy]
+plugins = [
+    "pydantic.mypy",
+    "sqlalchemy.ext.mypy.plugin",
+]
+ignore_missing_imports = true
+
+[tool.ruff.lint]
+ignore = ["E203", "E266", "E501", "C408", "B010", "F401", "C901", "B008"]
+select = ["B", "C", "E", "F", "W", "B9", "I"]
+
+[tool.ruff.lint.isort]
+force-single-line = true
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
