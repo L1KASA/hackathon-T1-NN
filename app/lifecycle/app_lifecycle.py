@@ -1,9 +1,9 @@
 import aiohttp
 from fastapi import FastAPI
 
+from app.common.logging import logger
 from app.database import initialize_db
 from app.database import shutdown_db
-from app.logging import logger
 
 
 class AppLifecycle:

@@ -6,11 +6,11 @@ from fastapi.security import HTTPAuthorizationCredentials
 from fastapi.security import HTTPBearer
 from starlette import status
 
+from app.common.exceptions import DatabaseException
+from app.common.exceptions import DuplicateEmployeeException
+from app.common.exceptions import IntegrityDataException
+from app.common.exceptions import NotFoundException
 from app.dependencies import get_employee_service
-from app.exceptions import DatabaseException
-from app.exceptions import DuplicateEmployeeException
-from app.exceptions import IntegrityDataException
-from app.exceptions import NotFoundException
 from app.schemas import EmployeeCreateSchema
 from app.schemas import EmployeeSchema
 from app.schemas import EmployeeUpdateSchema

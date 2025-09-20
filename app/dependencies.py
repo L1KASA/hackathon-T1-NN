@@ -1,4 +1,3 @@
-# dependencies.py
 from aiohttp import ClientSession
 from fastapi import Depends
 from fastapi import Request

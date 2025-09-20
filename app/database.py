@@ -1,10 +1,12 @@
+from typing import AsyncGenerator
+
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from sqlalchemy.ext.asyncio import create_async_engine
 
-from app.config import settings
-from app.logging import logger
+from app.common.config import settings
+from app.common.logging import logger
 
 engine = create_async_engine(
     settings.database_url,
@@ -13,7 +15,7 @@ engine = create_async_engine(
 
 session_maker = async_sessionmaker(bind=engine, expire_on_commit=False, class_=AsyncSession)
 
-async def get_async_session() -> AsyncSession:
+async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
     """Dependency for async database session"""
     async with session_maker() as session:
         try:

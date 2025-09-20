@@ -1,4 +1,4 @@
-from app.exceptions import ServiceException
+from app.common.exceptions import ServiceException
 from app.repositories.employee_repository import EmployeeRepository
 from app.schemas import EmployeeCreateSchema
 from app.schemas import EmployeeSchema
@@ -23,17 +23,7 @@ class EmployeeService:
         """Get employee by ID with skills"""
         try:
             employee = await self.repository.get_employee_with_skills(employee_id)
-
-            # Convert skills to schema format
-            skills_data = []
-            for emp_skill in employee.employee_skills:
-                skills_data.append({
-                    "skill_id": emp_skill.skill_id,
-                    "proficiency_level": emp_skill.proficiency_level
-                })
-
             employee_data = EmployeeWithSkillsSchema.model_validate(employee)
-            employee_data.skills = skills_data
             return employee_data
         except Exception as e:
             raise ServiceException(f"Failed to get employee: {str(e)}") from e

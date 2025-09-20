@@ -3,10 +3,10 @@ from fastapi import Depends
 from fastapi import HTTPException
 from starlette import status
 
+from app.common.exceptions import DatabaseException
+from app.common.exceptions import DuplicateSkillException
+from app.common.exceptions import IntegrityDataException
 from app.dependencies import get_skill_service
-from app.exceptions import DatabaseException
-from app.exceptions import DuplicateSkillException
-from app.exceptions import IntegrityDataException
 from app.schemas import SkillCreateSchema
 from app.schemas import SkillSchema
 from app.services.skill_service import SkillService

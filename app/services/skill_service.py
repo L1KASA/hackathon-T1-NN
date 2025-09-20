@@ -1,7 +1,6 @@
 from typing import Optional
 
-from app.exceptions import DatabaseException
-from app.exceptions import DuplicateSkillException
+from app.common.exceptions import DuplicateSkillException
 from app.repositories.skill_repository import SkillRepository
 from app.schemas import SkillSchema
 
@@ -22,5 +21,4 @@ class SkillService:
             id=skill.id,
             name=skill.name,
             description=skill.description,
-            created_at=skill.created_at,
         )

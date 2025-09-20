@@ -13,6 +13,7 @@ class JsonMessage(BaseModel):
 
 
 class SkillSchema(BaseModel):
+    id: int = Field(gt=0, examples=[1])
     name: str = Field(
         max_length=60, examples=["Java", "Python", "GO", "Docker-compose/Docker"], description="The name of the skill"
     )
@@ -24,7 +25,7 @@ class SkillCreateSchema(SkillSchema):
 
 
 class SkillResponseSchema(SkillSchema):
-    id: int = Field(gt=0, examples=[1])
+    pass
 
     class Config:
         from_attributes = True

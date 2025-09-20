@@ -3,7 +3,7 @@ import logging.handlers
 import os
 import re
 
-from app.config import settings
+from app.common.config import settings
 
 # Color codes for console output
 COLORS = {

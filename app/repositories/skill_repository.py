@@ -6,8 +6,8 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.exceptions import DatabaseException
-from app.exceptions import IntegrityDataException
+from app.common.exceptions import DatabaseException
+from app.common.exceptions import IntegrityDataException
 from app.models import Skill
 
 
@@ -39,6 +39,6 @@ class SkillRepository:
         try:
             s_query = select(exists().where(Skill.name == name))
             result = await self._session.execute(s_query)
-            return result.scalar()
+            return bool(result.scalar())
         except SQLAlchemyError as e:
             raise DatabaseException(f"Failed to validate skill existence: {str(e)}") from e
