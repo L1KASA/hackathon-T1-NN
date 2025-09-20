@@ -21,7 +21,7 @@ services:
       dockerfile: Dockerfile
     command: poetry run uvicorn app.main:app --reload --host 0.0.0.0 --forwarded-allow-ips '*'
     volumes:
-      - ./app:/app/app
+      - .:/src
     ports:
       - "8000:8000"
     env_file: .env
