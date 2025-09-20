@@ -1,10 +1,13 @@
 from typing import Optional
 
-from sqlalchemy import select, exists
-from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy import exists
+from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.exceptions import IntegrityDataException, DatabaseException
+from app.exceptions import DatabaseException
+from app.exceptions import IntegrityDataException
 from app.models import Skill
 
 
@@ -12,7 +15,7 @@ class SkillRepository:
     def __init__(self, session: AsyncSession) -> None:
         self._session = session
 
-    async def create_skill(
+    async def create(
         self, name: str, description: Optional[str] = None
     ) -> Skill:
         skill = Skill(name=name, description=description)
@@ -23,13 +26,13 @@ class SkillRepository:
             return skill
         except IntegrityError as e:
             await self._session.rollback()
-            raise IntegrityDataException(str(e))
+            raise IntegrityDataException(str(e)) from e
         except SQLAlchemyError as e:
             await self._session.rollback()
-            raise DatabaseException(f"Database operation failed: {str(e)}")
+            raise DatabaseException(f"Database operation failed: {str(e)}") from e
         except Exception as e:
             await self._session.rollback()
-            raise DatabaseException(f"Unexpected database error: {str(e)}")
+            raise DatabaseException(f"Unexpected database error: {str(e)}") from e
 
 
     async def validate_skill_exists_by_name(self, name: str) -> bool:
@@ -38,4 +41,4 @@ class SkillRepository:
             result = await self._session.execute(s_query)
             return result.scalar()
         except SQLAlchemyError as e:
-            raise DatabaseException(f"Failed to validate skill existence: {str(e)}")
+            raise DatabaseException(f"Failed to validate skill existence: {str(e)}") from e

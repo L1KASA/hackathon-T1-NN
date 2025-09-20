@@ -1,7 +1,14 @@
-from sqlalchemy import BigInteger, Float, TIMESTAMP, func, ForeignKey, Integer, Text
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import TIMESTAMP
+from sqlalchemy import BigInteger
+from sqlalchemy import Float
+from sqlalchemy import ForeignKey
+from sqlalchemy import Integer
 from sqlalchemy import String
+from sqlalchemy import Text
+from sqlalchemy import func
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 
 Base = declarative_base()

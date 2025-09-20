@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.lifecycle.app_lifecycle import AppLifecycle
+from app.routers import employee_router
 from app.routers import skill_router
 
 
@@ -30,3 +31,4 @@ def create_app() -> FastAPI:
 app = create_app()
 
 app.include_router(skill_router.router)
+app.include_router(employee_router.router)

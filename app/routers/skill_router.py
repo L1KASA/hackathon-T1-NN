@@ -1,9 +1,14 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter
+from fastapi import Depends
+from fastapi import HTTPException
 from starlette import status
 
 from app.dependencies import get_skill_service
-from app.exceptions import DuplicateSkillException, DatabaseException, IntegrityDataException
-from app.schemas import SkillSchema, SkillCreateSchema
+from app.exceptions import DatabaseException
+from app.exceptions import DuplicateSkillException
+from app.exceptions import IntegrityDataException
+from app.schemas import SkillCreateSchema
+from app.schemas import SkillSchema
 from app.services.skill_service import SkillService
 
 router = APIRouter(
@@ -19,7 +24,7 @@ async def create_skill(
 ):
     """Create a new skill"""
     try:
-        skill = await service.create_skill(
+        skill = await service.create(
             name=skill_data.name, description=skill_data.description
         )
         return skill
@@ -27,9 +32,9 @@ async def create_skill(
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=str(e)
-        )
+        ) from None
     except (DatabaseException, IntegrityDataException) as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e)
-        )
+        ) from None

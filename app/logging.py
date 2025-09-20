@@ -2,6 +2,7 @@ import logging
 import logging.handlers
 import os
 import re
+
 from app.config import settings
 
 # Color codes for console output

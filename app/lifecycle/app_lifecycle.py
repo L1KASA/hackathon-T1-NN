@@ -1,7 +1,8 @@
 import aiohttp
 from fastapi import FastAPI
 
-from app.database import initialize_db, shutdown_db
+from app.database import initialize_db
+from app.database import shutdown_db
 from app.logging import logger
 
 

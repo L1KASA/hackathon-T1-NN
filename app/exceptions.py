@@ -1,6 +1,7 @@
 import re
 from typing import Optional
 
+
 class BaseAppException(Exception):
     """Base exception for the application"""
 
@@ -52,6 +53,11 @@ class DuplicateSkillException(AlreadyExistsException):
     """Skill already exists"""
     def __init__(self, name: str):
         super().__init__("Skill", name)
+
+class DuplicateEmployeeException(AlreadyExistsException):
+    """Employee already exists"""
+    def __init__(self, name: str):
+        super().__init__("Employee", name)
 
 class ValidationException(ServiceException):
     """Validation errors"""
