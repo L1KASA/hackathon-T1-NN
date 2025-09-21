@@ -5,10 +5,10 @@
 - Алмаз Зиастинов (@almaz_ziastinov) - ML
 - Данила Толстов (@onlyoneIDK) - ML
 
-1. поднять postgresql
-2. заполнить .env (пример в .env.example)
-3. `docker compose -f docker-compose.dev.yml up -d`
-4. Применить миграции в alembic: `docker-compose -f docker-compose.dev.yml run --rm web alembic upgrade head`
+## Инструкция по локальному развертыванию
+1. Заполнить .env (пример в .env.example).
+2. Выполнить `docker compose -f docker-compose.dev.yml up -d`.
+3. Применить миграции в alembic: `docker-compose -f docker-compose.dev.yml run --rm web alembic upgrade head`
 
 ## Создать и применить миграцию в alembic
 ```
