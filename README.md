@@ -1,5 +1,10 @@
 # Hackathon T1 NN
 
+*Участники:*
+- Тахмазова Анжелика (@tahmazova) - Backend
+- Алмаз Зиастинов (@almaz_ziastinov) - ML
+- Данила Толстов (@onlyoneIDK) - ML
+
 1. поднять postgresql
 2. заполнить .env (пример в .env.example)
 3. `docker compose -f docker-compose.dev.yml up -d`
@@ -44,4 +49,4 @@ docker-compose -f docker-compose.dev.yml up -d
 - **Leaderboard** и связанные таблицы – рейтинги и критерии.
 - **Tip** – система взаимных благодарностей между сотрудниками (tip).
 - **Project** – таблица проектов.
-- *ProjectRequiredSkill* – требуемые навыки для проектов.
+- **ProjectRequiredSkill** – требуемые навыки для проектов.
