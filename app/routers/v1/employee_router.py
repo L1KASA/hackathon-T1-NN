@@ -128,6 +128,8 @@ async def calculate_profile_completion(
             count=completion.completion_percentage
         ))
 
+        return completion
+
     except ServiceException as e:
         raise HTTPException(status_code=404, detail=str(e)) from None
     except Exception as e:
