@@ -45,25 +45,26 @@ async def create_employee(
             detail=str(e)
         ) from None
 
-@router.get("/me", response_model=EmployeeWithSkillsSchema)
-async def get_employee_profile(
-    employee_id: int,
-    service: EmployeeService = Depends(get_employee_service),
-):
-    """Get current employee profile"""
-    try:
-        employee = await service.get_employee_profile(employee_id)
-        return employee
-    except NotFoundException as e:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=str(e)
-        ) from None
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=str(e)
-        ) from None
+
+# @router.get("/me", response_model=EmployeeWithSkillsSchema)
+# async def get_employee_profile(
+#     employee_id: int,
+#     service: EmployeeService = Depends(get_employee_service),
+# ):
+#     """Get current employee profile"""
+#     try:
+#         employee = await service.get_employee_profile(employee_id)
+#         return employee
+#     except NotFoundException as e:
+#         raise HTTPException(
+#             status_code=status.HTTP_404_NOT_FOUND,
+#             detail=str(e)
+#         ) from None
+#     except Exception as e:
+#         raise HTTPException(
+#             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+#             detail=str(e)
+#         ) from None
 
 @router.put("/{employee_id}", response_model=EmployeeSchema)
 async def update_employee(

@@ -8,6 +8,8 @@ from app.routers.v1 import employee_skill_router
 from app.routers.v1 import quest_router
 from app.routers.v1 import skill_router
 
+#from app.routers.v1 import recommendation_router
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -36,3 +38,4 @@ app.include_router(skill_router.router)
 app.include_router(employee_router.router)
 app.include_router(employee_skill_router.router)
 app.include_router(quest_router.router)
+#app.include_router(recommendation_router.router)
