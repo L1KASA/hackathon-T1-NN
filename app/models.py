@@ -1,16 +1,17 @@
 from typing import List
 from typing import Optional
 
+from sqlalchemy import TIMESTAMP
 from sqlalchemy import BigInteger
 from sqlalchemy import Boolean
 from sqlalchemy import Float
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 from sqlalchemy import String
-from sqlalchemy import TIMESTAMP
 from sqlalchemy import Text
 from sqlalchemy import func
-from sqlalchemy.orm import Mapped, DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 
@@ -135,6 +136,7 @@ class EmployeeSkill(Base):
     employee: Mapped["Employee"] = relationship(back_populates="employee_skills")
     skills: Mapped["Skill"] = relationship(back_populates="employee_skills")
 
+
 class Skill(Base):
     __tablename__ = 'skills'
     id: Mapped[int] = mapped_column(
@@ -164,6 +166,7 @@ class Skill(Base):
         back_populates="skill",
         cascade="all, delete-orphan"
     )
+
 
 class ExperiencePoints(Base):
     """Experience points earned by employees for various actions"""
@@ -470,6 +473,7 @@ class RoadmapRequiredSkill(Base):
     roadmap: Mapped["CareerRoadmap"] = relationship(back_populates="required_skills")
     skill: Mapped["Skill"] = relationship()
 
+
 class EmployeeRoadmap(Base):
     """Employee progress on career roadmaps"""
     __tablename__ = 'employee_roadmaps'
@@ -679,6 +683,7 @@ class ProjectRequiredSkill(Base):
 
     project: Mapped["Project"] = relationship(back_populates="required_skills_links")
     skill: Mapped["Skill"] = relationship(back_populates="project_requirements")
+
 
 class ProjectTeam(Base):
     """Table of team members"""

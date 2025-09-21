@@ -12,7 +12,7 @@ from app.schemas import SkillSchema
 from app.services.skill_service import SkillService
 
 router = APIRouter(
-    prefix="/skills",
+    prefix="/skills/v1",
     tags=["skills"],
 )
 

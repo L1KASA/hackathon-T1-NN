@@ -24,10 +24,11 @@ docker-compose -f docker-compose.dev.yml up -d
 ## Открыть документацию можно с помощью Swagger UI: http://localhost:8000/docs
 
 ## Если нужно посмотреть ERD для БД, необходимо:
-### 1. Перейти по http://localhost:8080, ввести логин и пароль: `admin@example.com` и `admin123` соответственно.
-### 2. Добавить сервер в pgAdmin (Правой кнопкой на "Servers" → "Create" → "Server"), указать данные из `.env`.
-### 3. Сохранить с помощью кнопки Save.
-### 4. Нажать по hr_consultant_db правой кнопкой мыши и выбрать ERD for Database.
+### 1. Раскомментить в docker-compose.dev.yml pgAdmin
+### 2. Перейти по http://localhost:8080, ввести логин и пароль: `admin@example.com` и `admin123` соответственно.
+### 3. Добавить сервер в pgAdmin (Правой кнопкой на "Servers" → "Create" → "Server"), указать данные из `.env`.
+### 4. Сохранить с помощью кнопки Save.
+### 5. Нажать по hr_consultant_db правой кнопкой мыши и выбрать ERD for Database.
 
 ## Описание таблиц
 

@@ -7,11 +7,6 @@ from pydantic import EmailStr
 from pydantic import Field
 
 
-class JsonMessage(BaseModel):
-    success: bool = Field(examples=["true"])
-    message: str | None = Field(None, examples=["Incorrect code"])
-
-
 class SkillSchema(BaseModel):
     id: int = Field(gt=0, examples=[1])
     name: str = Field(
@@ -70,3 +65,68 @@ class EmployeeSkillSchema(BaseModel):
 
 class EmployeeWithSkillsSchema(EmployeeSchema):
     skills: List[EmployeeSkillSchema] = Field(default_factory=list)
+
+class ProfileCompletionSchema(BaseModel):
+    completion_percentage: float = Field(..., ge=0, le=100, examples=[75.5])
+
+
+class EmployeeUpdateResponseSchema(BaseModel):
+    employee: EmployeeSchema
+    profile_completion: ProfileCompletionSchema
+
+
+class EmployeeSkillCreateSchema(BaseModel):
+    skill_id: int = Field(..., gt=0, examples=[1])
+    proficiency_level: int = Field(..., ge=1, le=10, examples=[5])
+
+class EmployeeSkillResponseSchema(BaseModel):
+    skill_id: int
+    proficiency_level: int
+    skill_name: str
+    skill_description: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+class QuestCreateSchema(BaseModel):
+    name: str = Field(..., max_length=100, examples=["Complete Profile"])
+    description: Optional[str] = Field(None, examples=["Fill all required fields in your profile"])
+    xp_reward: int = Field(..., gt=0, examples=[100])
+    action_type: str = Field(..., examples=["profile_update", "skill_add", "complete_project"])
+    required_count: int = Field(default=1, ge=1, examples=[5])
+
+class QuestSchema(BaseModel):
+    id: int
+    name: str
+    description: Optional[str]
+    xp_reward: int
+    action_type: str
+    required_count: int
+    is_active: bool
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+class EmployeeQuestProgressSchema(BaseModel):
+    quest_id: int
+    quest_name: str
+    current_count: int
+    required_count: int
+    is_completed: bool
+    progress_percentage: float
+    xp_reward: int
+
+class AssignQuestSchema(BaseModel):
+    employee_id: int
+    quest_id: int
+
+class UpdateQuestProgressSchema(BaseModel):
+    action_type: str
+    count: int = Field(default=1, ge=1)
+
+class QuestEventSchema(BaseModel):
+    employee_id: int
+    action_type: str
+    count: int = Field(default=1, ge=1)

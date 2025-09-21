@@ -1,42 +1,27 @@
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
-from fastapi import Security
-from fastapi.security import HTTPAuthorizationCredentials
-from fastapi.security import HTTPBearer
 from starlette import status
 
 from app.common.exceptions import DatabaseException
 from app.common.exceptions import DuplicateEmployeeException
 from app.common.exceptions import IntegrityDataException
 from app.common.exceptions import NotFoundException
-from app.dependencies import get_employee_service
-from app.schemas import EmployeeCreateSchema
+from app.common.exceptions import ServiceException
+from app.dependencies import get_employee_service, get_quest_service
+from app.schemas import EmployeeCreateSchema, QuestEventSchema
 from app.schemas import EmployeeSchema
 from app.schemas import EmployeeUpdateSchema
 from app.schemas import EmployeeWithSkillsSchema
+from app.schemas import ProfileCompletionSchema
 from app.services.employee_service import EmployeeService
+from app.services.quest_service import QuestService
 
 router = APIRouter(
-    prefix="/employees",
+    prefix="/employees/v1",
     tags=["employees"],
 )
 
-# Simple token validation (in real app use JWT or similar)
-security = HTTPBearer()
-
-async def get_current_employee_id(credentials: HTTPAuthorizationCredentials = Security(security)):
-    """Extract employee ID from token (simplified)"""
-    # In real application, decode JWT token and extract employee ID
-    try:
-        # This is a simplified example - in production use proper JWT validation
-        employee_id = int(credentials.credentials)
-        return employee_id
-    except (ValueError, TypeError):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token"
-        ) from None
 
 @router.post("/", response_model=EmployeeSchema, status_code=status.HTTP_201_CREATED)
 async def create_employee(
@@ -60,7 +45,7 @@ async def create_employee(
 
 @router.get("/me", response_model=EmployeeWithSkillsSchema)
 async def get_employee_profile(
-    employee_id: int = Depends(get_current_employee_id),
+    employee_id: int,
     service: EmployeeService = Depends(get_employee_service),
 ):
     """Get current employee profile"""
@@ -118,3 +103,29 @@ async def get_employee(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e)
         ) from None
+
+@router.get(
+    "/{employee_id}/completion",
+    response_model=ProfileCompletionSchema,
+    summary="Calculate profile completion percentage",
+    description="Calculate the completion percentage of employee profile including skills"
+)
+async def calculate_profile_completion(
+    employee_id: int,
+    service: EmployeeService = Depends(get_employee_service),
+    quest_service: QuestService = Depends(get_quest_service)
+):
+    """Calculate profile completion percentage for employee"""
+    try:
+        completion = await service.calculate_completion(employee_id)
+
+        await quest_service.handle_quest_event(QuestEventSchema(
+            employee_id=employee_id,
+            action_type="profile_completion",
+            count=completion.completion_percentage
+        ))
+
+    except ServiceException as e:
+        raise HTTPException(status_code=404, detail=str(e)) from None
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to calculate completion: {str(e)}") from None

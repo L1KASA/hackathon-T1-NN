@@ -1,7 +1,8 @@
 from typing import Annotated
 
 from pydantic import Field
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings
+from pydantic_settings import SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -18,6 +19,8 @@ class Settings(BaseSettings):
     POSTGRES_DB: Annotated[str, Field(validation_alias="POSTGRES_DB")]
     POSTGRES_HOST: Annotated[str, Field(validation_alias="POSTGRES_HOST")]
     POSTGRES_PORT: Annotated[int, Field(validation_alias="POSTGRES_PORT")]
+
+    MAX_SKILLS_FOR_EMPLOYEE: Annotated[int, Field(validation_alias="MAX_SKILLS_FOR_EMPLOYEE")]
 
     @property
     def database_url(self) -> str:

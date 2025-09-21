@@ -59,5 +59,11 @@ class DuplicateEmployeeException(AlreadyExistsException):
     def __init__(self, name: str):
         super().__init__("Employee", name)
 
+
 class ValidationException(ServiceException):
     """Validation errors"""
+
+
+class SkillNotFoundException(Exception):
+    """Raised when a skill is not found"""
+    pass

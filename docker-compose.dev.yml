@@ -30,20 +30,19 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${POSTGRES_USER}
-      PGADMIN_DEFAULT_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "8080:80"
-    networks:
-      - hackathon_service
-    depends_on:
-      - postgres
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    container_name: pgadmin
+#    restart: always
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: ${POSTGRES_USER}
+#      PGADMIN_DEFAULT_PASSWORD: ${POSTGRES_PASSWORD}
+#    ports:
+#      - "8080:80"
+#    networks:
+#      - hackathon_service
+#    depends_on:
+#      - postgres
 
 networks:
   hackathon_service:

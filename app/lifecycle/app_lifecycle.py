@@ -13,7 +13,6 @@ class AppLifecycle:
 
     async def on_startup(self):
         logger.info("Starting up application...")
-        await self._initialize_aiohttp()
         await initialize_db()
         logger.info(
             "Application startup complete. Ready to serve requests."
@@ -21,7 +20,6 @@ class AppLifecycle:
 
     async def on_shutdown(self):
         logger.info("Shutting down application...")
-        await self._close_aiohttp_session()
         await shutdown_db()
         logger.info("Application shutdown complete.")
 
