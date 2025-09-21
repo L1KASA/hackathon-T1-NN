@@ -11,7 +11,6 @@ from app.common.exceptions import SkillNotFoundException
 from app.dependencies import get_employee_skill_service
 from app.schemas import EmployeeSkillCreateSchema
 from app.schemas import EmployeeSkillResponseSchema
-from app.schemas import QuestEventSchema
 from app.services.employee_skill_service import EmployeeSkillService
 
 router = APIRouter(

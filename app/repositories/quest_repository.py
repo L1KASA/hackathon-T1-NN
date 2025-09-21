@@ -159,7 +159,7 @@ class QuestRepository:
                 .where(
                     EmployeeQuest.employee_id == employee_id,
                     Quest.action_type == action_type,
-                    EmployeeQuest.is_completed == False,
+                    EmployeeQuest.is_completed(False),
                     Quest.is_active.is_(True)
                 )
                 .options(selectinload(EmployeeQuest.quest))

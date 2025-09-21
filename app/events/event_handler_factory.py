@@ -28,4 +28,3 @@ class EventHandlerFactory:
         self.register_handler("profile_completion", ProfileUpdatedHandler(self.quest_service, self.employee_service))
         self.register_handler("complete_project", ProjectCompletedHandler(self.quest_service))
         self.register_handler("profile_update", ProfileUpdatedHandler(self.quest_service, self.employee_service))
-

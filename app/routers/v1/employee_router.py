@@ -8,12 +8,14 @@ from app.common.exceptions import DuplicateEmployeeException
 from app.common.exceptions import IntegrityDataException
 from app.common.exceptions import NotFoundException
 from app.common.exceptions import ServiceException
-from app.dependencies import get_employee_service, get_quest_service
-from app.schemas import EmployeeCreateSchema, QuestEventSchema
+from app.dependencies import get_employee_service
+from app.dependencies import get_quest_service
+from app.schemas import EmployeeCreateSchema
 from app.schemas import EmployeeSchema
 from app.schemas import EmployeeUpdateSchema
 from app.schemas import EmployeeWithSkillsSchema
 from app.schemas import ProfileCompletionSchema
+from app.schemas import QuestEventSchema
 from app.services.employee_service import EmployeeService
 from app.services.quest_service import QuestService
 

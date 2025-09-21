@@ -102,8 +102,9 @@ class EmployeeService:
                 total_percentage += FIELD_WEIGHTS.get(field_name, 0)
 
         # Проверка навыков
-        skills_count = len(employee.employee_skills) if hasattr(employee,
-                                                                'employee_skills') and employee.employee_skills else 0
+        skills_count = (
+            len(employee.employee_skills) if hasattr(employee,'employee_skills') and employee.employee_skills else 0
+        )
 
         # Навыки дают полный вес если их >= MAX_SKILLS_FOR_EMPLOYEE, иначе пропорционально
         if skills_count >= self.MAX_SKILLS_FOR_EMPLOYEE:

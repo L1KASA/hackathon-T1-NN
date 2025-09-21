@@ -12,8 +12,10 @@ docker-compose -f docker-compose.dev.yml run --rm web alembic upgrade head
 ```
 
 ## Запуск линтеров
+```
 docker-compose -f docker-compose.dev.yml exec app poetry run ruff check app --fix
 docker-compose -f docker-compose.dev.yml exec app poetry run mypy app
+```
 
 
 ## Пересобрать Docker образ:
@@ -25,7 +27,7 @@ docker-compose -f docker-compose.dev.yml up -d
 
 ## Если нужно посмотреть ERD для БД, необходимо:
 ### 1. Раскомментить в docker-compose.dev.yml pgAdmin
-### 2. Перейти по http://localhost:8080, ввести логин и пароль: `admin@example.com` и `admin123` соответственно.
+### 2. Перейти по http://localhost:8080, ввести логин и пароль: из .env.
 ### 3. Добавить сервер в pgAdmin (Правой кнопкой на "Servers" → "Create" → "Server"), указать данные из `.env`.
 ### 4. Сохранить с помощью кнопки Save.
 ### 5. Нажать по hr_consultant_db правой кнопкой мыши и выбрать ERD for Database.
