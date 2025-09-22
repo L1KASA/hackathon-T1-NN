@@ -1,0 +1,3 @@
+[submodule "ai_and_gradio"]
+	path = ai_and_gradio
+	url = https://github.com/SpiderOutLost/Hr_consultant_front.git
